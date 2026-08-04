@@ -1,0 +1,103 @@
+SQL> create table course2(
+  2    course_id number(5) Primary Key,
+  3    course_name varchar(20));
+
+Table created.
+
+SQL> desc course2
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSE_ID                                 NOT NULL NUMBER(5)
+ COURSE_NAME                                        VARCHAR2(20)
+
+SQL> create table student25(
+  2    reg varchar(10) Primary Key,
+  3    name varchar(20) not null,
+  4    course_id number(10) references course2(course_id),
+  5    email varchar(30) not null unique,
+  6    age number check (age>18),
+  7    gender char default 'F');
+
+Table created.
+
+SQL> desc student25
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REG                                       NOT NULL VARCHAR2(10)
+ NAME                                      NOT NULL VARCHAR2(20)
+ COURSE_ID                                          NUMBER(10)
+ EMAIL                                     NOT NULL VARCHAR2(30)
+ AGE                                                NUMBER
+ GENDER                                             CHAR(1)
+
+SQL> insert into course2 values('1','CSE');
+
+1 row created.
+
+SQL> insert into course2 values('2','ECE');
+
+1 row created.
+
+SQL> insert into course2 values('3','MECH');
+
+1 row created.
+
+SQL> insert into course2 values('4','CIVIL');
+
+1 row created.
+
+SQL> select * from course2
+  2  ;
+
+ COURSE_ID COURSE_NAME
+---------- --------------------
+         1 CSE
+         2 ECE
+         3 MECH
+         4 CIVIL
+
+SQL> insert into student25 values('11249A058','Bhavya','1','11249A058@kanchiuniv.ac.in','19');
+insert into student25 values('11249A058','Bhavya','1','11249A058@kanchiuniv.ac.in','19')
+            *
+ERROR at line 1:
+ORA-00947: not enough values
+
+
+SQL> insert into student25 values('11249A058','Bhavya','1','11249A058@kanchiuniv.ac.in','19','F');
+
+1 row created.
+
+SQL> insert into student25 values('11249A034','Dhanya','3','11249A034@kanchiuniv.ac.in','19','F');
+
+1 row created.
+
+SQL> insert into student25 values('11249A021','Navya','2','11249A021@kanchiuniv.ac.in','19','F');
+
+1 row created.
+
+SQL> insert into student25 values('11249A020','Aishwarya','4','11249A020@kanchiuniv.ac.in','19','F');
+
+1 row created.
+
+SQL> select * from student25;
+
+REG        NAME                  COURSE_ID EMAIL
+---------- -------------------- ---------- ------------------------------
+       AGE G
+---------- -
+11249A058  Bhavya                        1 11249A058@kanchiuniv.ac.in
+        19 F
+
+11249A034  Dhanya                        3 11249A034@kanchiuniv.ac.in
+        19 F
+
+11249A021  Navya                         2 11249A021@kanchiuniv.ac.in
+        19 F
+
+
+REG        NAME                  COURSE_ID EMAIL
+---------- -------------------- ---------- ------------------------------
+       AGE G
+---------- -
+11249A020  Aishwarya                     4 11249A020@kanchiuniv.ac.in
+        19 F
