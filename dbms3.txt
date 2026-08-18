@@ -1,0 +1,418 @@
+Enter user-name: A058@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> desc student20
+ERROR:
+ORA-04043: object student20 does not exist
+
+
+SQL> desc student25
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REG                                       NOT NULL VARCHAR2(10)
+ NAME                                      NOT NULL VARCHAR2(20)
+ COURSE_ID                                          NUMBER(10)
+ EMAIL                                     NOT NULL VARCHAR2(30)
+ AGE                                                NUMBER
+ GENDER                                             CHAR(1)
+
+SQL> select * from student25
+  2  ;
+
+no rows selected
+
+SQL> select name,reg from student25;
+
+no rows selected
+
+SQL>  insert into student25 values('11249A058','Bhavya','1','11249A058@kanchiuniv.ac.in','19','F');
+ insert into student25 values('11249A058','Bhavya','1','11249A058@kanchiuniv.ac.in','19','F')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (A058.SYS_C0029359) violated - parent key not
+found
+
+
+SQL>  insert into student25 values('11249A058','Bhavya','1','11249A058@kanchiuniv.ac.in','19','F');
+ insert into student25 values('11249A058','Bhavya','1','11249A058@kanchiuniv.ac.in','19','F')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (A058.SYS_C0029359) violated - parent key not
+found
+
+
+SQL>
+SQL>  insert into student25 values('11249A058','Bhavya','1','11249A058@kanchiuniv.ac.in','19','F');
+ insert into student25 values('11249A058','Bhavya','1','11249A058@kanchiuniv.ac.in','19','F')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (A058.SYS_C0029359) violated - parent key not
+found
+
+
+SQL> insert into student25 values('11249A020','Aishwarya','1','11249a058@kanchiuniv.ac.in','19','F');
+insert into student25 values('11249A020','Aishwarya','1','11249a058@kanchiuniv.ac.in','19','F')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (A058.SYS_C0029359) violated - parent key not
+found
+
+
+SQL> desc course2
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSE_ID                                 NOT NULL NUMBER(5)
+ COURSE_NAME                                        VARCHAR2(20)
+
+SQL> desc student25
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REG                                       NOT NULL VARCHAR2(10)
+ NAME                                      NOT NULL VARCHAR2(20)
+ COURSE_ID                                          NUMBER(10)
+ EMAIL                                     NOT NULL VARCHAR2(30)
+ AGE                                                NUMBER
+ GENDER                                             CHAR(1)
+
+SQL> select name,reg from student25;
+
+no rows selected
+
+SQL> insert into student25 values('11249A020','Aishwarya','1','11249a058@kanchiuniv.ac.in','19','F');
+insert into student25 values('11249A020','Aishwarya','1','11249a058@kanchiuniv.ac.in','19','F')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (A058.SYS_C0029359) violated - parent key not
+found
+
+
+SQL> insert into course2 values('101','Aishwarya');
+
+1 row created.
+
+SQL> insert into course2 values('102','Navya');
+
+1 row created.
+
+SQL> insert into course2 values('103','Dhanya');
+
+1 row created.
+
+SQL> insert into course2 values('104','Navatha');
+
+1 row created.
+
+SQL> select * from course2;
+
+ COURSE_ID COURSE_NAME
+---------- --------------------
+       101 Aishwarya
+       102 Navya
+       103 Dhanya
+       104 Navatha
+
+SQL> create table course3(
+  2    2    course_id number(5) Primary Key,
+  3    3    course_name varchar(20));
+  2    course_id number(5) Primary Key,
+  *
+ERROR at line 2:
+ORA-00904: : invalid identifier
+
+
+SQL> create table course3(
+  2    2    course_id number(5) Primary Key,
+  3        course_name varchar(20))
+  4
+SQL> create table course3(
+  2        course_id number(5) Primary Key,
+  3        course_name varchar(20));
+
+Table created.
+
+SQL> desc course3
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSE_ID                                 NOT NULL NUMBER(5)
+ COURSE_NAME                                        VARCHAR2(20)
+
+SQL> insert into course3 values('1','CSE');
+
+1 row created.
+
+SQL> insert into course3 values('2','ECE');
+
+1 row created.
+
+SQL> insert into course3 values('3','MECH');
+
+1 row created.
+
+SQL> insert into course3 values('4','CIVIL');
+
+1 row created.
+
+SQL> select * from course3;
+
+ COURSE_ID COURSE_NAME
+---------- --------------------
+         1 CSE
+         2 ECE
+         3 MECH
+         4 CIVIL
+
+SQL> create table student30(
+  2        reg varchar(10) Primary Key,
+  3        name varchar(20) not null,
+  4        course_id number(10) references course3(course_id),
+  5        email varchar(30) not null unique,
+  6        age number check (age>18),
+  7        gender char default 'F');
+
+Table created.
+
+SQL> desc student30
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REG                                       NOT NULL VARCHAR2(10)
+ NAME                                      NOT NULL VARCHAR2(20)
+ COURSE_ID                                          NUMBER(10)
+ EMAIL                                     NOT NULL VARCHAR2(30)
+ AGE                                                NUMBER
+ GENDER                                             CHAR(1)
+
+SQL> insert into student30 values('
+  2
+SQL>
+SQL> insert into student30('11249A020','Aishwarya','1','11249a020@kanchiuniv.ac.in','19');
+insert into student30('11249A020','Aishwarya','1','11249a020@kanchiuniv.ac.in','19')
+                      *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert into student30 values('11249A020','Aishwarya','1','11249a020@kanchiuniv.ac.in','19');
+insert into student30 values('11249A020','Aishwarya','1','11249a020@kanchiuniv.ac.in','19')
+            *
+ERROR at line 1:
+ORA-00947: not enough values
+
+
+SQL> insert into student30 values('11249A020','Aishwarya','1','11249a020@kanchiuniv.ac.in','19','F');
+
+1 row created.
+
+SQL> insert into student30 values('11249A021','Navya','2','11249a021@kanchiuniv.ac.in','19','F');
+
+1 row created.
+
+SQL> insert into student30 values('11249A034','Dhanya','3','11249a034@kanchiuniv.ac.in','18','F');
+insert into student30 values('11249A034','Dhanya','3','11249a034@kanchiuniv.ac.in','18','F')
+*
+ERROR at line 1:
+ORA-02290: check constraint (A058.SYS_C0032549) violated
+
+
+SQL> insert into student30 values('11249A034','Dhanya','3','11249a034@kanchiuniv.ac.in','18','F');
+insert into student30 values('11249A034','Dhanya','3','11249a034@kanchiuniv.ac.in','18','F')
+*
+ERROR at line 1:
+ORA-02290: check constraint (A058.SYS_C0032549) violated
+
+
+SQL> insert into student30 values('11249A045','Navatha','4','11249a045@kanchiuniv.ac.in','19','F');
+
+1 row created.
+
+SQL> insert into student30 values('11249A034','Dhanya','3','11249a034@kanchiuniv.ac.in','19','F');
+
+1 row created.
+
+SQL> select * from student30;
+
+REG        NAME                  COURSE_ID EMAIL
+---------- -------------------- ---------- ------------------------------
+       AGE G
+---------- -
+11249A020  Aishwarya                     1 11249a020@kanchiuniv.ac.in
+        19 F
+
+11249A021  Navya                         2 11249a021@kanchiuniv.ac.in
+        19 F
+
+11249A045  Navatha                       4 11249a045@kanchiuniv.ac.in
+        19 F
+
+
+REG        NAME                  COURSE_ID EMAIL
+---------- -------------------- ---------- ------------------------------
+       AGE G
+---------- -
+11249A034  Dhanya                        3 11249a034@kanchiuniv.ac.in
+        19 F
+
+
+SQL> select reg,name,course_id;
+select reg,name,course_id
+                        *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select reg,name,email;
+select reg,name,email
+                    *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select course_id from course_id;
+select course_id from course_id
+                      *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select course_id from course3;
+
+ COURSE_ID
+----------
+         1
+         2
+         3
+         4
+
+SQL> select course_id from student30;
+
+ COURSE_ID
+----------
+         1
+         2
+         4
+         3
+
+SQL> select reg from student30;
+
+REG
+----------
+11249A020
+11249A021
+11249A034
+11249A045
+
+SQL> select reg,name loc from student30,course3 where student.course_id=course.course_id;
+select reg,name loc from student30,course3 where student.course_id=course.course_id
+                                                                   *
+ERROR at line 1:
+ORA-00904: "COURSE"."COURSE_ID": invalid identifier
+
+
+SQL> select reg,name loc from student30,course3 where student.course_id=course3.course_id;
+select reg,name loc from student30,course3 where student.course_id=course3.course_id
+                                                 *
+ERROR at line 1:
+ORA-00904: "STUDENT"."COURSE_ID": invalid identifier
+
+
+SQL> select reg,name from student30,course3 where student.course_id=course3.course_id;
+select reg,name from student30,course3 where student.course_id=course3.course_id
+                                             *
+ERROR at line 1:
+ORA-00904: "STUDENT"."COURSE_ID": invalid identifier
+
+
+SQL> select reg,name from student30,course3 where student30.course_id=course3.course_id;
+
+REG        NAME
+---------- --------------------
+11249A020  Aishwarya
+11249A021  Navya
+11249A045  Navatha
+11249A034  Dhanya
+
+SQL> select reg,name,course_name from student30,course3;
+
+REG        NAME                 COURSE_NAME
+---------- -------------------- --------------------
+11249A020  Aishwarya            CSE
+11249A020  Aishwarya            ECE
+11249A020  Aishwarya            MECH
+11249A020  Aishwarya            CIVIL
+11249A021  Navya                CSE
+11249A021  Navya                ECE
+11249A021  Navya                MECH
+11249A021  Navya                CIVIL
+11249A045  Navatha              CSE
+11249A045  Navatha              ECE
+11249A045  Navatha              MECH
+
+REG        NAME                 COURSE_NAME
+---------- -------------------- --------------------
+11249A045  Navatha              CIVIL
+11249A034  Dhanya               CSE
+11249A034  Dhanya               ECE
+11249A034  Dhanya               MECH
+11249A034  Dhanya               CIVIL
+
+16 rows selected.
+
+SQL> select * from student30;
+
+REG        NAME                  COURSE_ID EMAIL
+---------- -------------------- ---------- ------------------------------
+       AGE G
+---------- -
+11249A020  Aishwarya                     1 11249a020@kanchiuniv.ac.in
+        19 F
+
+11249A021  Navya                         2 11249a021@kanchiuniv.ac.in
+        19 F
+
+11249A045  Navatha                       4 11249a045@kanchiuniv.ac.in
+        19 F
+
+
+REG        NAME                  COURSE_ID EMAIL
+---------- -------------------- ---------- ------------------------------
+       AGE G
+---------- -
+11249A034  Dhanya                        3 11249a034@kanchiuniv.ac.in
+        19 F
+
+
+SQL> select reg,name,course_id,course_name from student30,course3 where student30.course_name=course3.course_name;
+select reg,name,course_id,course_name from student30,course3 where student30.course_name=course3.course_name
+                                                                   *
+ERROR at line 1:
+ORA-00904: "STUDENT30"."COURSE_NAME": invalid identifier
+
+
+SQL> select reg,name,course_id from student30;
+
+REG        NAME                  COURSE_ID
+---------- -------------------- ----------
+11249A020  Aishwarya                     1
+11249A021  Navya                         2
+11249A045  Navatha                       4
+11249A034  Dhanya                        3
+
+SQL> select a.reg,a.name,a.course_id,a.course_name,a.email from student30 a,course3 b where a.course_id(+)=b.course_id;
+select a.reg,a.name,a.course_id,a.course_name,a.email from student30 a,course3 b where a.course_id(+)=b.course_id
+                                *
+ERROR at line 1:
+ORA-00904: "A"."COURSE_NAME": invalid identifier
+
+
+SQL> select a.reg,a.name,a.course_id,a.email from student30 a,course3 b where a.course_id(+)=b.course_id;
+
+REG        NAME                  COURSE_ID EMAIL
+---------- -------------------- ---------- ------------------------------
+11249A020  Aishwarya                     1 11249a020@kanchiuniv.ac.in
+11249A021  Navya                         2 11249a021@kanchiuniv.ac.in
+11249A045  Navatha                       4 11249a045@kanchiuniv.ac.in
+11249A034  Dhanya                        3 11249a034@kanchiuniv.ac.in
+
+SQL>
